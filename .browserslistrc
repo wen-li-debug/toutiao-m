@@ -1,3 +1,12 @@
-> 1%
-last 2 versions
-not dead
+# 这个文件用于兼容浏览器配置使用
+
+# 兼容到超过百分之一用户使用的浏览器
+#> 1%
+
+# 兼容浏览器到最后2个版本
+#last 2 versions
+#not dead
+
+# 兼容移动端的浏览器配置
+Android >= 4.0
+iOS >= 8

@@ -101,8 +101,15 @@ export default {
       })
     },
     async currentGetUsers () {
-      const data = await getUsers()
-      this.currentUser = data.data
+      if (!this.users) {
+        return
+      }
+      try {
+        const data = await getUsers()
+        this.currentUser = data.data
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }

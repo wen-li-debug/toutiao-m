@@ -10,6 +10,7 @@ const Home = () => import('@/views/home')
 const Qw = () => import('@/views/qw')
 const Video = () => import('@/views/video')
 const My = () => import('@/views/my')
+const Search = () => import('@/views/search')
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
         component: My
       }
     ]
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: Search
   }
 ]
 

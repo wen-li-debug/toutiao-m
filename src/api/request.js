@@ -11,7 +11,7 @@ request.interceptors.request.use(config => {
   // 判断users 是否有值
   if (users) {
     // 添加token
-    config.headers.Authorization = `Bearer ${store.state.users.token}`
+    config.headers.Authorization = `Bearer ${users.token}`
   }
   return config
 }, err => {

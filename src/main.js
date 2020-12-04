@@ -13,6 +13,9 @@ import 'amfe-flexible'
 // 全局样式
 import './styles/index.less'
 
+// 引入时间Dayjs 插件
+import './utils/dayjs.js'
+
 Vue.config.productionTip = false
 
 Vue.use(Vant)

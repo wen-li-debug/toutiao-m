@@ -20,7 +20,12 @@
     <search-suggestion v-else-if="searchText" :searchText="searchText" @searchs="onSearch" />
 
     <!-- 历史记录 -->
-    <search-history v-else :history="historys" />
+    <search-history
+     v-else
+     :history="historys"
+     @search-history="onSearch"
+     @all-del-history="historys = []"
+    />
 
   </div>
 </template>
@@ -29,6 +34,10 @@
 import SearchSuggestion from './children/search-suggestion'
 import SearchHistory from './children/search-history'
 import SearchResult from './children/search-result'
+
+import { mapState } from 'vuex'
+
+import { getSearchHistories } from '@/api/search'
 
 import { getUsers, setUser } from '@/utils/storeage'
 
@@ -44,12 +53,21 @@ export default {
     return {
       searchText: '',
       isShowResult: false,
-      historys: getUsers('search-history') || []
+      historys: []
     }
   },
-  watch: {},
-  computed: {},
-  created () {},
+  watch: {
+    // 监听historys 值实现持久化
+    historys () {
+      setUser('search-history', this.historys)
+    }
+  },
+  computed: {
+    ...mapState(['users'])
+  },
+  created () {
+    this.loadSearchHistroy()
+  },
   mounted () {},
   methods: {
     // 回车触发搜索数据接口
@@ -63,14 +81,26 @@ export default {
       }
       // 赋值
       this.historys.unshift(search)
-      console.log(this.historys)
 
       // 数据持久化
       // 线上和本地
-      setUser('search-history', this.historys)
+      // setUser('search-history', this.historys)
 
       // 打开数据结构框
       this.isShowResult = true
+    },
+    // 获取历史记录
+    async loadSearchHistroy () {
+      // 获取本地历史记录
+      let lostoreHistory = getUsers('search-history')
+      // 用户登录状态获取线上的历史纪录
+      // 因为线上只显示4条记录
+      if (this.users) {
+        const data = await getSearchHistories()
+        // 将线上的历史记录和本地的合并，并使用ES6 中的 Set函数何必去重
+        lostoreHistory = [...new Set([...lostoreHistory, ...data.data.keywords])]
+      }
+      this.historys = lostoreHistory
     }
   }
 }

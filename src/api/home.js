@@ -20,3 +20,13 @@ export function getArticles (params) {
     params
   })
 }
+
+/**
+ *  文章数据
+ */
+export function getArticelId (articelId) {
+  return request({
+    method: 'GET',
+    url: `/app/v1_0/articles/${articelId}`
+  })
+}

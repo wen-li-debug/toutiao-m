@@ -1,5 +1,7 @@
 <template>
-  <div class="active-list">
+  <div
+   class="active-list"
+  >
     <van-pull-refresh
      v-model="isRefresh"
      @refresh="onRefresh"

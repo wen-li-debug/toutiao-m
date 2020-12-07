@@ -11,6 +11,7 @@ const Qw = () => import('@/views/qw')
 const Video = () => import('@/views/video')
 const My = () => import('@/views/my')
 const Search = () => import('@/views/search')
+const Articel = () => import('@/views/articel')
 
 const routes = [
   {
@@ -48,6 +49,13 @@ const routes = [
     path: '/search',
     name: 'search',
     component: Search
+  },
+  {
+    path: '/articel/:articelId',
+    name: 'articel',
+    component: Articel,
+    // 将params以props
+    props: true
   }
 ]
 

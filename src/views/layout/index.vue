@@ -1,7 +1,9 @@
 <template>
   <div class="layout-container">
-    <!-- 路由出口 -->
-    <router-view></router-view>
+    <!-- 二级路由出口 keep-alive 实现组件缓存，不会销毁组件-->
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
 
     <!-- 底部框 -->
     <van-tabbar v-model="active" route>
@@ -26,7 +28,10 @@ export default {
   watch: {},
   computed: {},
   created () {},
-  mounted () {},
+  mounted () {
+    // 添加组件缓存
+    this.$store.commit('addCachePages', 'LayoutIndex')
+  },
   methods: {}
 }
 </script>

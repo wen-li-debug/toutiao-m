@@ -20,6 +20,12 @@ Vue.filter('relativeTime', value => {
   return dayjs(value).from(dayjs())
 })
 
+// 过滤时间格式
+Vue.filter('dataTime', (value, format = 'YYYY-MM-DD HH:mm:ss') => {
+  // 返回过滤好的时间
+  return dayjs(value).format(format)
+})
+
 // 案例
 // 1. 将当时间转化成相应格式(dayjs() 获取当前时间)
 console.log(dayjs().format('YYYY-MM-DD HH:mm:ss'))

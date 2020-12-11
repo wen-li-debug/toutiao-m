@@ -1,6 +1,7 @@
 <template>
   <div
    class="active-list"
+   ref="articelList"
   >
     <van-pull-refresh
      v-model="isRefresh"
@@ -28,6 +29,9 @@ import { getArticles } from '@/api/home'
 
 import ArticelItem from '@/component/articel-item'
 
+// 防抖第三方插件
+import { debounce } from 'lodash'
+
 export default {
   name: 'ActiveList',
   components: {
@@ -50,13 +54,23 @@ export default {
         channel_id: this.channel.id,
         timestamp: Date.now(),
         with_top: 1
-      }
+      },
+      articelHeight: 0
     }
   },
   watch: {},
   computed: {},
   created () {},
-  mounted () {},
+  mounted () {
+    // 记录用户滚动的高度
+    // 获取list的元素
+    const articelList = this.$refs.articelList
+    // 绑定滚动事件
+    articelList.onscroll = debounce(() => {
+      // 使用抖动获取滚动的高度
+      this.articelHeight = articelList.scrollTop
+    }, 100)
+  },
   methods: {
     // 上拉刷新
     async onLoad () {
@@ -93,7 +107,17 @@ export default {
       // 显示加载好的信息
       this.isSuccess = `刷新了${result.length}条信息`
     }
-  }
+  },
+  // 组件在缓存中，激活状态触发
+  activated () {
+    // 保留用户预览的高度
+    const articelList = this.$refs.articelList
+    articelList.scrollTop = this.articelHeight
+    // console.log(articelList.scrollHeight) // 能看到的整个显示的高度
+    // console.log(articelList.scrollTop) // 下来被卷上去的高度
+  },
+  // 组件处于缓存，不活跃状态触发
+  deactivated () {}
 }
 </script>
 <style lang="less" scoped>

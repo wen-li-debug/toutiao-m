@@ -72,7 +72,7 @@ export default {
   data () {
     return {
       user: {
-        mobile: '13911111111',
+        mobile: '17090086870',
         code: '246810'
       },
       // 规则对象
@@ -109,7 +109,9 @@ export default {
         const data = await login(this.user)
         this.$store.commit('setUsers', data.data)
         this.$toast.success('登录成功')
-        this.$router.back()
+        this.$store.commit('delCachePages', 'LayoutIndex')
+        // 登陆之后根据跳转过来的url 在返回回去
+        this.$router.push(this.$route.query.toUrl || '/')
       } catch (error) {
         this.$toast.fail('登录失败,手机或者验证码失败')
         console.log(error)

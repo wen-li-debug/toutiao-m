@@ -13,7 +13,6 @@
           to="/search"
         >搜索</van-button>
     </van-nav-bar>
-
     <!-- 导航栏 -->
     <van-tabs v-model="active" class="channel-warp">
       <van-tab

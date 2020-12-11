@@ -30,3 +30,49 @@ export function getArticelId (articelId) {
     url: `/app/v1_0/articles/${articelId}`
   })
 }
+
+/**
+ *  点击收藏文章
+ */
+export function addCollect (articelId) {
+  return request({
+    method: 'POST',
+    url: '/app/v1_0/article/collections',
+    data: {
+      target: articelId
+    }
+  })
+}
+
+/**
+ *  取消收藏文章
+ */
+export function delCollect (articelId) {
+  return request({
+    method: 'DELETE',
+    url: `/app/v1_0/article/collections/${articelId}`
+  })
+}
+
+/**
+ *  点击点赞
+ */
+export function addLike (articelId) {
+  return request({
+    method: 'POST',
+    url: '/app/v1_0/article/likings',
+    data: {
+      target: articelId
+    }
+  })
+}
+
+/**
+ *  取消点赞
+ */
+export function delLike (articelId) {
+  return request({
+    method: 'DELETE',
+    url: `/app/v1_0/article/likings/${articelId}`
+  })
+}

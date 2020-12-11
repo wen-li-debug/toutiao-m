@@ -15,7 +15,13 @@
           :src="currentUser.photo"
         />
         <div slot="title" class="name">{{currentUser.name}}</div>
-        <van-button size="mini" round type="primary" class="upt-info">编辑信息</van-button>
+        <van-button
+         size="mini"
+         round
+         type="primary"
+         class="upt-info"
+         to="/profile"
+        >编辑信息</van-button>
       </van-cell>
 
     <!-- 宫格 -->
@@ -43,7 +49,14 @@
     </van-cell-group>
 
     <div class="not-login" v-else>
-      <div @click="$router.push('/login')">
+      <div @click="$router.push({
+        name: 'login',
+        // 设置登陆成功后跳转到原先的路径
+        query: {
+          // toUrl 记录跳转过来的url
+          toUrl: '/my'
+        }
+      })">
         <div class="not-img">
           <img src="@/assets/login/phone.png" alt="">
         </div>
@@ -60,7 +73,11 @@
     <!-- 消息通知 -->
     <!-- 小智同学 -->
     <van-cell title="消息通知" is-link url="/vant/mobile.html" class="message" v-if="users "/>
-    <van-cell title="小智同学" is-link to="index" />
+    <van-cell
+     title="小智同学"
+     is-link
+     to="/chat"
+    />
     <van-cell title="退出登录" class="loginout-cell" v-if="users" @click="loginOutClick"/>
   </div>
 </template>
